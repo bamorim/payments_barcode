@@ -98,6 +98,36 @@ defmodule PaymentsBarcodeTest do
     end
   end
 
+  describe "Convertion from barcode to written_code" do
+    test "when the code is a Barcode" do
+      assert from_barcode_to_written_code(@boleto_barcode_right) == @boleto_written_code_right
+    end
+
+    test "when the code is a GDA" do
+      assert from_barcode_to_written_code(@gda_barcode_right) == @gda_written_code_right
+    end
+
+    test "when convertion fails" do
+      assert from_barcode_to_written_code(@boleto_barcode_wrong) == :error
+      assert from_barcode_to_written_code(@gda_barcode_wrong) == :error
+    end
+  end
+
+  describe "Convertion from written_code to barcode" do
+    test "when the code is a Barcode" do
+      assert from_written_code_to_barcode(@boleto_written_code_right) == @boleto_barcode_right
+    end
+
+    test "when the code is a GDA" do
+      assert from_written_code_to_barcode(@gda_written_code_right) == @gda_barcode_right
+    end
+
+    test "when convertion fails" do
+      assert from_written_code_to_barcode(@boleto_written_code_wrong) == :error
+      assert from_written_code_to_barcode(@gda_written_code_wrong) == :error
+    end
+  end
+
   test "it doesnt crash with non-binary values" do
     assert :error = from_code(1234)
   end

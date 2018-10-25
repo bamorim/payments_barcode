@@ -62,6 +62,24 @@ defmodule PaymentsBarcode do
   def to_written_code(%Boleto{} = data), do: Boleto.to_written_code(data)
   def to_written_code(%GDA{} = data), do: GDA.to_written_code(data)
 
+  @doc "Try to convert from a barcode to a written code"
+  @spec from_barcode_to_written_code(String.t()) :: String.t() | :error
+  def from_barcode_to_written_code(code) do
+    case from_barcode(code) do
+      {:ok, barcode} -> to_written_code(barcode)
+      :error -> :error
+    end
+  end
+
+  @doc "Try to convert from a written code to a barcode"
+  @spec from_written_code_to_barcode(String.t()) :: String.t() | :error
+  def from_written_code_to_barcode(code) do
+    case from_written_code(code) do
+      {:ok, barcode} -> to_barcode(barcode)
+      :error -> :error
+    end
+  end
+
   defp try_parse(fns, code) do
     fns
     |> Stream.map(& &1.(code))
