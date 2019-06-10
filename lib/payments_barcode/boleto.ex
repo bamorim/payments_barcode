@@ -1,6 +1,6 @@
 defmodule PaymentsBarcode.Boleto do
   @moduledoc """
-  Represents a
+  Represents a Boleto.
   """
 
   alias PaymentsBarcode.{
