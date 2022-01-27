@@ -22,7 +22,7 @@ defmodule PaymentsBarcode.Boleto do
           bank_code: String.t(),
           currency_code: String.t(),
           value: integer,
-          due_date: Date.t(),
+          due_date: Date.t() | nil,
           free_field: String.t()
         }
 
